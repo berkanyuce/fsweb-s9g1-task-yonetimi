@@ -5,6 +5,8 @@ import TaskForm from "./TaskForm";
 import TaskHookForm from "./TaskHookForm";
 import PeopleForm from "./PeopleForm";
 import { initialTasks, initialTeam } from "./data";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
@@ -20,10 +22,13 @@ function App() {
   }
 
   function handleComplete(id) {
-    console.log("tamamlama fonksiyonunu buraya yazın")
-  }
+    const taskKopya = [...tasks];
+    const tiklananTask = taskKopya.filter((olay) => olay.id === id)[0];
+    tiklananTask.status = "yapıldı";
+    setTasks(taskKopya);  }
 
   return (
+    <>
     <div className="app">
       <div className="formColumn">
         <div className="form-container">
@@ -59,8 +64,18 @@ function App() {
           </div>
         </div>
       </div>
-
     </div>
+    <ToastContainer
+        position= "top-right"
+        autoClose= {5000}
+        hideProgressBar= {false}
+        closeOnClick= {true}
+        pauseOnHover= {true}
+        draggable
+        progress= {undefined}
+        theme= "colored"
+      />
+    </>
   );
 }
 
